@@ -1,3 +1,10 @@
+.hero-unit.trees {
+  background-image: url('/images/trees_bg.jpg');
+  background-size: cover;
+  padding-left: 30%;
+  color: #131214;
+}
+
 /* Override default stripe color */
 .table-striped tbody > tr:nth-child(odd) > td, .table-striped tbody > tr:nth-child(odd) > th {
   background-color: #eee;
@@ -28,7 +35,7 @@
     }
 }
 
-.table.products .on_sale img {
+.table.products .on_sale img, .table.product_detail .on_sale img {
   width: 20px;
   height: 20px;
   animation: blink 1s;
@@ -67,10 +74,11 @@ a.nodecoration {
 a.nodecoration:hover {
   text-decoration: none;
 }
+/*
 a.nodecoration:hover div.hero-unit {
   background: #ddd;
 }
-
+*/
 .row-fluid.top-space {
   margin-top: 20px;
 }

@@ -1,3 +1,6 @@
+
+<a style="margin-bottom: 20px;" class="btn btn-primary btn-large" href="/products/new">Create New Product</a>
+
 <table class="table table-striped products">
   <thead>
     <tr>
@@ -16,6 +19,9 @@
           On Sale?<%= @sort[:orderby].upcase == "ON_SALE" ? ' <span class="caret sort-caret light"></span>' : '' %>
         </a>
       </th>
+      <th>
+        &nbsp;
+      </th>
 <!--       <th class="product_name">Name</th>
       <th class="price">Price</th>
       <th class="on_sale">On Sale?</th> -->
@@ -25,8 +31,15 @@
     <% @rs.each do |row| %>
       <tr>
         <td class="product_name"><%= row['name'] %></td>
-        <td class="price"><%= "$" + sprintf("%.2f", row['price']) %></td>
+        <td class="price"><%= row['price'].to_currency  %></td>
         <td class="on_sale"><%= if row['on_sale'] == 't' then "<img src='/images/sale.png' alt='On Sale!'>" else "" end %></td>
+        <td class="view_edit_delete">
+          <a class="btn btn-mini" href="/products/<%= row['id'] %>">View Details</a> 
+          <a class="btn btn-mini btn-primary" href="/products/<%= row['id'] %>/edit">Edit</a>  
+          <form style="margin: 0; padding: 0; display: inline-block;" action="/products/<%= row['id'] %>/destroy" method="post" onsubmit="return confirm('Are you sure? This will DESTROY \'<%= row['name'] %>\'. There is no undo!');">
+            <button class="btn btn-danger btn-mini">Delete</button>
+          </form>
+        </td>
       </tr>
     <% end %>
   </tbody>

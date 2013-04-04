@@ -1,0 +1,32 @@
+<div class="alert alert-block alert-success">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <h4>Success!</h4>
+  The product has been created.
+</div>
+
+<p>
+  <a class="btn" href="/products">&laquo; Back to Products</a>
+  <a class="btn btn-primary" href="/products/new">Create Another</a>
+</p>
+
+<table class="table product_detail">
+  <thead>
+    <tr>
+      <th colspan="2">
+        New Product Info
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Name</th>
+      <td><%= @name %></td>
+    </tr>
+    <tr>
+      <th>Price</th>
+      <td class="price"><%= @price.to_currency %></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a class="btn" href="/products">&laquo; Back to Products</a></p>
