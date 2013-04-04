@@ -1,0 +1,18 @@
+<table class="table table-striped users">
+  <thead>
+    <tr>
+      <th class="user_name<%= @sort[:dir].upcase == "ASC" ? ' dropup' : '' %><%= @sort[:orderby].upcase == "NAME" ? ' current' : '' %>">
+        <a class="nodecoration full" href="<%= @sort[:orderby].upcase == "NAME" ? (@sort[:dir].upcase == "ASC" ? '/users/sort/name/desc' : '/users/sort/name/asc') : '/users/sort/name/asc' %>">
+          Name<%= @sort[:orderby].upcase == "NAME" ? ' <span class="caret sort-caret light"></span>' : '' %>
+        </a>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @rs.each do |row| %>
+      <tr>
+        <td class="user_name"><%= row['name'] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

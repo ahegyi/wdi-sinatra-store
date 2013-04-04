@@ -1,0 +1,18 @@
+<!-- OLD STYLE NAV -->
+          <nav>
+            <ul class="nav nav-pills">
+              <li <%= request.path_info == "/" ? 'class="active"' : '' %>>
+                <a href="/">Home</a>
+              </li>
+              <li <%= request.path_info == "/products" ? 'class="active"' : '' %>>
+                <a href="/products">Products</a>
+              </li>
+              <li <%= request.path_info == "/users" ? 'class="active"' : '' %>>
+                <a href="/users">Users</a>
+              </li>
+            </ul>
+          </nav>
+
+<!-- Old rows -->
+        <!-- <td class="product_id"><%= #row['id'] %></td> -->
+        <!-- <td class="user_id"><%= # row['id'] %></td> -->

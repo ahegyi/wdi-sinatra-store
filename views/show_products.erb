@@ -1,0 +1,33 @@
+<table class="table table-striped products">
+  <thead>
+    <tr>
+      <th class="product_name<%= @sort[:dir].upcase == "ASC" ? ' dropup' : '' %><%= @sort[:orderby].upcase == "NAME" ? ' current' : '' %>">
+        <a class="nodecoration full" href="<%= @sort[:orderby].upcase == "NAME" ? (@sort[:dir].upcase == "ASC" ? '/products/sort/name/desc' : '/products/sort/name/asc') : '/products/sort/name/asc' %>">
+          Name<%= @sort[:orderby].upcase == "NAME" ? ' <span class="caret sort-caret light"></span>' : '' %>
+        </a>
+      </th>
+      <th class="price<%= @sort[:dir].upcase == "ASC" ? ' dropup' : '' %><%= @sort[:orderby].upcase == "PRICE" ? ' current' : '' %>">
+        <a class="nodecoration full" href="<%= @sort[:orderby].upcase == "PRICE" ? (@sort[:dir].upcase == "ASC" ? '/products/sort/price/desc' : '/products/sort/price/asc') : '/products/sort/price/asc' %>">
+          Price<%= @sort[:orderby].upcase == "PRICE" ? ' <span class="caret sort-caret light"></span>' : '' %>
+        </a>
+      </th>
+      <th class="on_sale<%= @sort[:dir].upcase == "ASC" ? ' dropup' : '' %><%= @sort[:orderby].upcase == "ON_SALE" ? ' current' : '' %>">
+        <a class="nodecoration full" href="<%= @sort[:orderby].upcase == "ON_SALE" ? (@sort[:dir].upcase == "ASC" ? '/products/sort/on_sale/desc' : '/products/sort/on_sale/asc') : '/products/sort/on_sale/asc' %>">
+          On Sale?<%= @sort[:orderby].upcase == "ON_SALE" ? ' <span class="caret sort-caret light"></span>' : '' %>
+        </a>
+      </th>
+<!--       <th class="product_name">Name</th>
+      <th class="price">Price</th>
+      <th class="on_sale">On Sale?</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <% @rs.each do |row| %>
+      <tr>
+        <td class="product_name"><%= row['name'] %></td>
+        <td class="price"><%= "$" + sprintf("%.2f", row['price']) %></td>
+        <td class="on_sale"><%= if row['on_sale'] == 't' then "<img src='/images/sale.png' alt='On Sale!'>" else "" end %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
