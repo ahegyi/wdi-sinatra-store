@@ -6,22 +6,22 @@
   <div class="control-group">
     <label class="control-label" for="product_name">Product Name</label>
     <div class="controls">
-      <input type="text" name="product_name" value="<%= @product_details['name'] %>">
+      <input type="text" name="product_name" id="product_name" value="<%= @product_details['name'] %>">
     </div>
   </div>
   <div class="control-group">
-    <label class="control-label" for="product_name">Product Price</label>
+    <label class="control-label" for="product_price">Product Price</label>
     <div class="controls">
       <div class="input-prepend">
         <span class="add-on">$</span>
-        <input type="text" name="product_price" value="<%= @product_details['price'] == "" ? "" : @product_details['price'].to_currency("") %>">
+        <input type="text" name="product_price" id="product_price" value="<%= @product_details['price'] == "" ? "" : @product_details['price'].to_currency("") %>">
       </div>
     </div>
   </div>
   <div class="control-group">
-    <label class="control-label" for="product_name">On Sale?</label>
+    <label class="control-label" for="product_on_sale">On Sale?</label>
     <div class="controls">
-      <input type="checkbox" name="product_on_sale" <%= @product_details['on_sale'] == "t" ? "checked" : "" %>>
+      <input type="checkbox" name="product_on_sale" id="product_on_sale" <%= @product_details['on_sale'] == "t" ? "checked" : "" %>>
     </div>
   </div>
   <div class="control-group">
