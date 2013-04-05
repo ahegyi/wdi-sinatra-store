@@ -1,13 +1,18 @@
 # gem install --version 1.3.0 sinatra
 require 'pry'
+# sinatra/reloader conflicts with later versions of sinatra
 gem 'sinatra', '1.3.0'
 require 'sinatra'
+# "continuous deployment", no need to restart server
 require 'sinatra/reloader'
 # require 'sinatra/support/numeric'
 require 'sqlite3'
 gem 'binding_of_caller'
 require 'binding_of_caller'
 require 'better_errors'
+require 'open-uri'
+require 'uri'
+require 'json'
 
 =begin
 class Main < Sinatra::Base
@@ -99,6 +104,15 @@ get '/products/sort/:orderby/:dir' do
   @sort = params
 
   erb :show_products
+end
+
+# SEARCH FOR A PRODUCT
+get '/products/search' do
+  @q = params[:q]
+  file = open("http://search.twitter.com/search.json?q=#{URI.escape(@q)}")
+  @results = JSON.load(file.read)
+
+  erb :search_results
 end
 
 # ================== POST/PUT/DELETE PRODUCTS ================== #
