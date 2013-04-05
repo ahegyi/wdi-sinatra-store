@@ -108,9 +108,10 @@ end
 post '/products' do
   @name = params[:product_name]
   @price = params[:product_price].to_f
+  @on_sale = params[:product_on_sale] == "on" ? "t" : "f"
   @created_at = Time.now
 
-  @rs = @db.execute("INSERT INTO products ('created_at', 'name', 'price') VALUES (?, ?, ?);", @created_at.to_s, @name, @price)
+  @rs = @db.execute("INSERT INTO products ('created_at', 'name', 'price', 'on_sale') VALUES (?, ?, ?, ?);", @created_at.to_s, @name, @price, @on_sale)
 
   erb :product_created
 end
@@ -120,8 +121,9 @@ post '/products/:id' do
   @id = params[:id]
   @name = params[:product_name]
   @price = params[:product_price].to_f
+  @on_sale = params[:product_on_sale] == "on" ? "t" : "f"
 
-  @rs = @db.execute("UPDATE products SET name = ?, price = ? WHERE id = ?;", @name, @price, @id)
+  @rs = @db.execute("UPDATE products SET name = ?, price = ?, on_sale = ? WHERE id = ?;", @name, @price, @on_sale, @id)
   
   redirect '/products'
 end

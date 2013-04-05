@@ -26,6 +26,10 @@
       <th>Price</th>
       <td class="price"><%= @price.to_currency %></td>
     </tr>
+    <tr>
+      <th>On Sale?</th>
+      <td class="on_sale"><%= if @on_sale == 't' then "<img src='/images/sale.png' alt='On Sale!'>" else "Nope" end %></td>
+    </tr>
   </tbody>
 </table>
 
