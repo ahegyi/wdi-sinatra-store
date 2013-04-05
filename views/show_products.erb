@@ -37,6 +37,7 @@
           <a class="btn btn-mini" href="/products/<%= row['id'] %>">View Details</a> 
           <a class="btn btn-mini btn-primary" href="/products/<%= row['id'] %>/edit">Edit</a>  
           <form style="margin: 0; padding: 0; display: inline-block;" action="/products/<%= row['id'] %>/destroy" method="post" onsubmit="return confirm('Are you sure? This will DESTROY \'<%= row['name'] %>\'. There is no undo!');">
+            <input type="hidden" name="_method" value="delete">
             <button class="btn btn-danger btn-mini">Delete</button>
           </form>
         </td>

@@ -129,7 +129,7 @@ post '/products/:id' do
 end
 
 # DELETE PRODUCT
-post '/products/:id/destroy' do
+delete '/products/:id/destroy' do
   @id = params[:id]
   @rs = @db.execute("DELETE FROM products WHERE id = ?", @id)
 
