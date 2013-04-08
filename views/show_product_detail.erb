@@ -31,6 +31,30 @@
           </tr>
         </tbody>
       </table>
+
+      <table class="table product_detail">
+        <thead>
+          <tr>
+            <th colspan="2">
+              Google Shopping: First Result for '<%= @details['name'] %>'
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Photo</th>
+            <td><img src="<%= @goog_results["items"][0]["product"]["images"][0]["link"] %>"></td>
+          </tr>
+          <tr>
+            <th>Description</th>
+            <td><%= @goog_results["items"][0]["product"]["description"] %></td>
+          </tr>
+          <tr>
+            <th>Buy</th>
+            <td><a target="_blank" href="<%= @goog_results["items"][0]["product"]["link"] %>">Buy now from <%= @goog_results["items"][0]["product"]["author"]["name"] %></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <div class="span6">

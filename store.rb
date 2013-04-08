@@ -109,8 +109,6 @@ get '/products/search' do
   @q = params[:q]
   file = open("http://search.twitter.com/search.json?q=#{URI.escape(@q)}")
 
- # :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE
-
   @results = JSON.load(file.read)
 
   erb :search_results
@@ -123,8 +121,12 @@ get '/products/:id' do
   @rs = @db.execute("SELECT * FROM products WHERE id = ? LIMIT 1", @id)
   @details = @rs.first
 
-  file = open("http://search.twitter.com/search.json?q=#{URI.escape(@details['name'])}")
-  @twitter_results = JSON.load(file.read)
+  twitter_file = open("http://search.twitter.com/search.json?q=#{URI.escape(@details['name'])}")
+  @twitter_results = JSON.load(twitter_file.read)
+
+  goog_shopping_key = "AIzaSyCLbHEfq1BBSfIBLdmAV6wcnAPfQEtKQGo"
+  goog_file = open("https://www.googleapis.com/shopping/search/v1/public/products?key=#{goog_shopping_key}&country=US&q=#{URI.escape(@details['name'])}&alt=json", :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE)
+  @goog_results = JSON.load(goog_file.read)
 
   erb :show_product_detail
 end
