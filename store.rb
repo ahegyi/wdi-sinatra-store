@@ -13,6 +13,7 @@ require 'better_errors'
 require 'open-uri'
 require 'uri'
 require 'json'
+require 'time'
 
 =begin
 class Main < Sinatra::Base
@@ -39,12 +40,41 @@ configure :development do
   BetterErrors.application_root = File.expand_path("..", __FILE__)
 end
 
-# ================== CURRENCY HELPER ================== #
+# ================== HELPERS ================== #
 
 class Numeric
   def to_currency(currency="$")
     formatted_float = sprintf("%.2f", self)
     return currency + formatted_float.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, '\1,')
+  end
+end
+
+class Time
+  def to_time_ago_simple
+    seconds = ((Time.now - self).abs).round
+    minutes = (((Time.now - self).abs)/60).round
+       
+    return nil if minutes < 0
+
+    case minutes
+    when 0
+      case seconds
+      when 2..30
+        "#{seconds} seconds ago"
+      else
+        "just now"
+      end
+    when 1
+      "1 minute ago"
+    when 1..59
+      "#{minutes} minutes ago"
+    when 60..119
+      "about 1 hour ago"
+    when 120..1439
+      "about #{(minutes/60).floor} hours ago"
+    else
+      "a while ago"
+    end
   end
 end
 
@@ -74,12 +104,27 @@ get '/products/new' do
   erb :new_product
 end
 
+# SEARCH FOR A PRODUCT
+get '/products/search' do
+  @q = params[:q]
+  file = open("http://search.twitter.com/search.json?q=#{URI.escape(@q)}")
+
+ # :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE
+
+  @results = JSON.load(file.read)
+
+  erb :search_results
+end
+
 # GET PRODUCT DETAIL
 get '/products/:id' do
   @id = params[:id]
 
   @rs = @db.execute("SELECT * FROM products WHERE id = ? LIMIT 1", @id)
   @details = @rs.first
+
+  file = open("http://search.twitter.com/search.json?q=#{URI.escape(@details['name'])}")
+  @twitter_results = JSON.load(file.read)
 
   erb :show_product_detail
 end
@@ -106,14 +151,6 @@ get '/products/sort/:orderby/:dir' do
   erb :show_products
 end
 
-# SEARCH FOR A PRODUCT
-get '/products/search' do
-  @q = params[:q]
-  file = open("http://search.twitter.com/search.json?q=#{URI.escape(@q)}")
-  @results = JSON.load(file.read)
-
-  erb :search_results
-end
 
 # ================== POST/PUT/DELETE PRODUCTS ================== #
 

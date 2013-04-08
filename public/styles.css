@@ -20,6 +20,10 @@
   color: #5A1E3C;
 }
 
+.table tbody th {
+  width: 30%;
+}
+
 @keyframes blink {
     0% {
         opacity: 1;
@@ -74,6 +78,24 @@ a.nodecoration {
 a.nodecoration:hover {
   text-decoration: none;
 }
+
+a.twitter-created-at {
+  font-size: 80%;
+  color: #999;
+}
+
+strong.search-term {
+  background: yellow;
+}
+
+p.inverted-header {
+  background: #333;
+  color: #eee;
+  padding: 8px;
+  line-height: 20px;
+  text-align: left;
+  font-weight: bold;
+}
 /*
 a.nodecoration:hover div.hero-unit {
   background: #ddd;
@@ -82,6 +104,11 @@ a.nodecoration:hover div.hero-unit {
 .row-fluid.top-space {
   margin-top: 20px;
 }
+/*
+.row-fluid.shade {
+  background: #eee;
+}
+*/
 
 
 /*

@@ -1,27 +1,79 @@
-<p><a class="btn" href="/products">&laquo; Back to Products</a></p>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <p><a class="btn" href="/products">&laquo; Back to Products</a></p>
+    </div>
+  </div>
 
-<table class="table product_detail">
-  <thead>
-    <tr>
-      <th colspan="2">
-        Product Detail for '<%= @details['name'] %>'
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Price</th>
-      <td class="price"><%= @details['price'].to_currency %></td>
-    </tr>
-    <tr>
-      <th>On Sale?</th>
-      <td class="on_sale"><%= if @details['on_sale'] == 't' then "<img src='/images/sale.png' alt='On Sale!'>" else "Nope" end %></td>
-    </tr>
-    <tr>
-      <th>ID</th>
-      <td><%= @details['id'] %></td>
-    </tr>
-  </tbody>
-</table>
+  <div class="row-fluid">
+    
+    <div class="span6">
+      <table class="table product_detail">
+        <thead>
+          <tr>
+            <th colspan="2">
+              Product Detail for '<%= @details['name'] %>'
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Price</th>
+            <td class="price"><%= @details['price'].to_currency %></td>
+          </tr>
+          <tr>
+            <th>On Sale?</th>
+            <td class="on_sale"><%= if @details['on_sale'] == 't' then "<img src='/images/sale.png' alt='On Sale!'>" else "Nope" end %></td>
+          </tr>
+          <tr>
+            <th>ID</th>
+            <td><%= @details['id'] %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-<p><a class="btn" href="/products">&laquo; Back to Products</a></p>
+    <div class="span6">
+
+
+      <div class="container-fluid">
+        
+        <div class="row-fluid">
+          <div class="span12">
+            <p class="inverted-header">Recent tweets for '<%= @details['name'] %>'</p>
+          </div>
+        </div>
+
+        <% @twitter_results["results"].each_with_index do |result, index| %>
+          <div class="row-fluid top-space <%= index%2==1 ? "shade" : "" %>">
+            <div class="span1">
+              <img src="<%= result["profile_image_url"] %>">
+            </div>
+            <div class="span11">
+              <p>
+                  <% # surround with 'strong' tags each word of product name
+                    name_arr = @details['name'].split
+                    bolded_tweet = result["text"]
+                    name_arr.each_with_index do |word, i|
+                      re = Regexp.new(name_arr[i], Regexp::IGNORECASE)
+                      bolded_tweet.gsub!(re, '<strong class="search-term">\0</strong>' )
+                    end
+
+                  %>
+                <%= bolded_tweet %> (<a target="_blank" href="https://twitter.com/<%= result["from_user"] %>">@<%= result["from_user"] %></a>) <a target="_blank" class="twitter-created-at" href="https://twitter.com/<%= result["from_user"] %>/status/<%= result["id"] %>"><%= Time.parse(result["created_at"]).to_time_ago_simple %></a></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+    </div> <!-- span6 for twitter results -->
+
+  </div> <!-- row -->
+
+  <div class="row-fluid">
+    <div class="span12">
+      <p><a class="btn" href="/products">&laquo; Back to Products</a></p>
+    </div>
+  </div>
+
+</div>
